@@ -1,0 +1,24 @@
+Project Description:
+This project will provide a simulation of a hospital ER. It is designed to be a discrete event simulation to simulate how patients arrive and are processed over a time frame. The simulation is going to be used to visualize and illustrate how the movement of patients varies over a time frame. Due to factors such as incoming patients or emergencies, etc.
+Implementation:
+The program will utilize a std::map where the key will represent the department name (i.e ER, ICU, Surgery), and the value will be a std::array which is three elements long, with each element being a std::list. The contents of the array will consist of patients in the order as followed:
+[0] = Waiting for treatment
+[1] = Being treated
+[2] = Discharged
+
+Each list within the array will be populated with patient names (which are strings). The program will then be given at least 100 patients in an external file. Each entry in the file will consist of two pieces of information: the department and the name of the patient. The patients are to be placed in their corresponding department's appropriate list (initially all patients will be waiting).
+
+Simulation Description:
+The simulation will run for twenty-five time periods. During each time period, patients will:
+• Move from waiting to being treated
+• Move from being treated to being discharged
+• New patients may enter and be waiting for treatment
+• An emergency may occur and patients are more quickly treated in certain circumstances.
+
+The program will then provide output at the following instances:
+•The initial state of all departments
+• The state at each given time period
+• The state after the simulation.
+
+Purpose:
+This simulation aims to provide a simple yet effective representation of the queue and resource problem within complex real world systems such as hospitals.
