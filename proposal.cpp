@@ -1,17 +1,18 @@
-//COMSC-210 || LAB-29 || Akashdeep Singh
-// Program: ER Simulation (Alpha version)
-// Description: adds file input and basic simulation behavior
+//COMSC-210 || LAB-31 || Akashdeep Singh
+// Program: ER Simulation (Beta version)
+// Description: Full simulation with file input and 25 time steps
 
 #include <iostream>
 #include <map>
 #include <array>
 #include <list>
 #include <fstream>
+#include <cstdlib>
 using namespace std;
 
 // CONSTANTS
 const int NUM_LISTS = 3;
-
+const int TIME_STEPS = 25;
 // FUNCTION PROTOTYPES
 void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital);
 void display(const map<string, array<list<string>, NUM_LISTS>>& hospital);
