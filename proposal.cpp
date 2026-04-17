@@ -84,12 +84,9 @@ void display(const map<string, array<list<string>, NUM_LISTS>>& hospital)
 // FUNCTION: simulate
 void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital)
 {
-    cout << "\n--- Running Mock Simulation ---\n";
-
-    // Run a few time steps (alpha version)
-    for (int t = 1; t <= 5; t++)
+    for (int t = 1; t <= TIME_STEPS; t++)
     {
-        cout << "\nTime Step " << t << endl;
+        cout << "\n--- Time Step " << t << " ---\n";
 
         for (auto& pair : hospital)
         {
@@ -114,6 +111,15 @@ void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital)
                 pair.second[2].push_back(patient);
 
                 cout << patient << " discharged from " << dept << endl;
+            }
+
+            //Random new patient arrival, doing this to improve the simulation
+            if (rand() % 4 == 0) // 25% chance
+            {
+                string newPatient = "Patient_" + to_string(rand() % 1000);
+                pair.second[0].push_back(newPatient);
+
+                cout << newPatient << " arrived at " << dept << endl;
             }
         }
     }
