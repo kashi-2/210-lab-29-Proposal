@@ -85,26 +85,35 @@ void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital)
 {
     cout << "\n--- Running Mock Simulation ---\n";
 
-    // Access the ER department
-    string patient;
-
-    // Move patient from waiting to treatment
-    if (!hospital["ER"][0].empty())
+    // Run a few time steps (alpha version)
+    for (int t = 1; t <= 5; t++)
     {
-        patient = hospital["ER"][0].front();
-        hospital["ER"][0].pop_front();
-        hospital["ER"][1].push_back(patient);
+        cout << "\nTime Step " << t << endl;
 
-        cout << "Moved " << patient << " to treatment\n";
-    }
+        for (auto& pair : hospital)
+        {
+            string dept = pair.first;
+            string patient;
 
-    // Move patient from treatment to discharged
-    if (!hospital["ER"][1].empty())
-    {
-        patient = hospital["ER"][1].front();
-        hospital["ER"][1].pop_front();
-        hospital["ER"][2].push_back(patient);
+            // waiting -> treatment
+            if (!pair.second[0].empty())
+            {
+                patient = pair.second[0].front();
+                pair.second[0].pop_front();
+                pair.second[1].push_back(patient);
 
-        cout << "Moved " << patient << " to discharged\n";
+                cout << patient << " moved to treatment in " << dept << endl;
+            }
+
+            // treatment -> discharged
+            if (!pair.second[1].empty())
+            {
+                patient = pair.second[1].front();
+                pair.second[1].pop_front();
+                pair.second[2].push_back(patient);
+
+                cout << patient << " discharged from " << dept << endl;
+            }
+        }
     }
 }
