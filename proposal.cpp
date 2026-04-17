@@ -8,6 +8,7 @@
 #include <list>
 #include <fstream>
 #include <cstdlib>
+#include <string>
 using namespace std;
 
 // CONSTANTS

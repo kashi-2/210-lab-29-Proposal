@@ -1,0 +1,29 @@
+1. Bug: program crashed when file didn't open
+   Fix: Added ifstream error check and return statement 
+
+2. Bug: Map was empty when file path was incorrect
+   Fix: corrected the file name and location
+
+3. Bug: Patients were not moving between lists
+   Fix: Corrected pop_front() and push_back() logic
+
+4. Bug: Infinite loop during simulation testing
+   Fix: Made sure the loop ran fixed number of time steps 
+
+5. Bug: Display function printed nothing 
+   Fix: Ensured data was inserted before calling display()
+
+6. Bug: Used pass by value in display()
+   Fix: changed to const reference to avoid copying 
+
+7. Bug: simulation only worked for "ER"
+   Fix: updated loop to iterate through all the departments
+
+8. Bug: empty list access caused issues
+   Fix: added checks using .empty() before accessing front()
+
+9. Bug: Random patients not appearing 
+   Fix: adjusted rand() condition to increase probability 
+
+10. Bug: output formatting was messy
+    Fix: added some spacing and labels for clarity
