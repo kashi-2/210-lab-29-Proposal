@@ -1,11 +1,12 @@
 //COMSC-210 || LAB-29 || Akashdeep Singh
-// Program: ER Simulation mockup
-// Description: basic mockup, test of data structure and function calls
+// Program: ER Simulation (Alpha version)
+// Description: adds file input and basic simulation behavior
 
 #include <iostream>
 #include <map>
 #include <array>
 #include <list>
+#include <fstream>
 using namespace std;
 
 // CONSTANTS
@@ -20,11 +21,24 @@ int main()
     // This is us creating the map
     map<string, array<list<string>, NUM_LISTS>> hospital;
 
-    // Adding one dummy data element  
-    // Department: ER
-    // One patient in the waiting list
-    hospital["ER"][0].push_back("John");
+    // Open file
+    ifstream fin("patients.txt");
 
+    if (!fin)
+    {
+        cout << "Error opening file.\n";
+        return 1;
+    }
+
+    // Read file data
+    string dept, name;
+    while (fin >> dept >> name)
+    {
+        hospital[dept][0].push_back(name); // put in waiting list
+    }
+
+    fin.close();
+    
     // Show initial state
     cout << "INITIAL STATE:\n";
     display(hospital);

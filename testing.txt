@@ -1,0 +1,49 @@
+Unit Testing Description:
+
+To test the functions in this program, I would create small driver programs 
+that isolate each function.
+
+For the display() function:
+- I would create a map with known values
+- Call display()
+- Verify that all lists (waiting, treatment, discharged) print correctly
+
+For the simulate() function:
+- I would initialize a map with a few patients in the waiting list
+- Call simulate()
+- Check that patients correctly move:
+    waiting -> treatment -> discharged
+- Add extra cout statements if needed to trace movement
+
+I would also test edge cases:
+- Empty lists (no crashes)
+- One patient only
+- Multiple departments
+
+--------------------------------------------------
+
+Unit Test Driver Program:
+
+#include <iostream>
+#include <map>
+#include <array>
+#include <list>
+using namespace std;
+
+const int NUM_LISTS = 3;
+
+void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital);
+
+int main()
+{
+    map<string, array<list<string>, NUM_LISTS>> testHospital;
+
+    // Add test data
+    testHospital["ER"][0].push_back("TestPatient");
+
+    // Run function
+    simulate(testHospital);
+
+    // Check results manually
+    return 0;
+}
