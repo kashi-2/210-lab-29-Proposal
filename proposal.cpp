@@ -57,7 +57,7 @@ int main()
 void display(const map<string, array<list<string>, NUM_LISTS>>& hospital)
 {
     // Loop through map
-    for (auto pair : hospital)
+    for (const auto& pair : hospital) // made this change to avoid unnecessary copying
     {
         cout << "\nDepartment: " << pair.first << endl;
 
