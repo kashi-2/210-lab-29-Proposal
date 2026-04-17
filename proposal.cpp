@@ -1,11 +1,12 @@
 //COMSC-210 || LAB-29 || Akashdeep Singh
-// Program: ER Simulation mockup
-// Description: basic mockup, test of data structure and function calls
+// Program: ER Simulation (Alpha version)
+// Description: adds file input and basic simulation behavior
 
 #include <iostream>
 #include <map>
 #include <array>
 #include <list>
+#include <fstream>
 using namespace std;
 
 // CONSTANTS
@@ -20,11 +21,24 @@ int main()
     // This is us creating the map
     map<string, array<list<string>, NUM_LISTS>> hospital;
 
-    // Adding one dummy data element  
-    // Department: ER
-    // One patient in the waiting list
-    hospital["ER"][0].push_back("John");
+    // Open file
+    ifstream fin("patients.txt");
 
+    if (!fin)
+    {
+        cout << "Error opening file.\n";
+        return 1;
+    }
+
+    // Read file data
+    string dept, name;
+    while (fin >> dept >> name)
+    {
+        hospital[dept][0].push_back(name); // put in waiting list
+    }
+
+    fin.close();
+    
     // Show initial state
     cout << "INITIAL STATE:\n";
     display(hospital);
@@ -43,7 +57,7 @@ int main()
 void display(const map<string, array<list<string>, NUM_LISTS>>& hospital)
 {
     // Loop through map
-    for (auto pair : hospital)
+    for (const auto& pair : hospital) // made this change to avoid unnecessary copying
     {
         cout << "\nDepartment: " << pair.first << endl;
 
@@ -71,26 +85,35 @@ void simulate(map<string, array<list<string>, NUM_LISTS>>& hospital)
 {
     cout << "\n--- Running Mock Simulation ---\n";
 
-    // Access the ER department
-    string patient;
-
-    // Move patient from waiting to treatment
-    if (!hospital["ER"][0].empty())
+    // Run a few time steps (alpha version)
+    for (int t = 1; t <= 5; t++)
     {
-        patient = hospital["ER"][0].front();
-        hospital["ER"][0].pop_front();
-        hospital["ER"][1].push_back(patient);
+        cout << "\nTime Step " << t << endl;
 
-        cout << "Moved " << patient << " to treatment\n";
-    }
+        for (auto& pair : hospital)
+        {
+            string dept = pair.first;
+            string patient;
 
-    // Move patient from treatment to discharged
-    if (!hospital["ER"][1].empty())
-    {
-        patient = hospital["ER"][1].front();
-        hospital["ER"][1].pop_front();
-        hospital["ER"][2].push_back(patient);
+            // waiting -> treatment
+            if (!pair.second[0].empty())
+            {
+                patient = pair.second[0].front();
+                pair.second[0].pop_front();
+                pair.second[1].push_back(patient);
 
-        cout << "Moved " << patient << " to discharged\n";
+                cout << patient << " moved to treatment in " << dept << endl;
+            }
+
+            // treatment -> discharged
+            if (!pair.second[1].empty())
+            {
+                patient = pair.second[1].front();
+                pair.second[1].pop_front();
+                pair.second[2].push_back(patient);
+
+                cout << patient << " discharged from " << dept << endl;
+            }
+        }
     }
 }
